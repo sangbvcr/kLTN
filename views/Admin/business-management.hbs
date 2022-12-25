@@ -1,0 +1,104 @@
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Danh sách tài khoản</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="sort">Mã hóa đơn</th>
+                                <th scope="col" class="sort">Sản phẩm</th>
+                                <th scope="col" class="sort">Loại thanh toán</th>
+                                <th scope="col" class="sort">Tổng giá trị</th>
+                                <th scope="col" class="sort">Giảm giá</th>
+                                <th scope="col" class="sort">Thành tiền</th>
+                                <th scope="col" class="sort">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            {{#each list}}
+                            <tr id="{{_id}}">
+                                <th scope="row">
+                                    <div class="media align-items-center">
+                                        <div class="media-body">
+                                            <span class="name mb-9 text-sm">{{_id}}</span>
+                                        </div>
+                                    </div>
+                                </th>
+                                <td>
+                                    <ol>
+                                        {{#each productlist}}     
+                                        <li>
+                                            <b>Mã khóa:</b>
+                                            {{this._id}}<br>
+                                            <b>Tên khóa:</b>
+                                            {{this.name}}<br>
+                                            <b>Giá tiền:</b>
+                                            {{this.price}}
+                                        </li>
+                                        {{/each}}
+                                    </ol>
+                                </td>
+                                <td >
+                                    {{payment.name}}
+                                </td>
+                                <td >
+                                    {{totalprice}}
+                                </td>
+                                <td >
+                                    {{discount}}
+                                </td>
+                                <td >
+                                    {{money}}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-rounded btn-sm my-0" onclick="RemoveBill(`{{_id}}`)">Delete</button>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Card footer -->
+                <div class="card-footer py-4">
+                    <nav aria-label="...">
+                        Có tổng cộng {{totalpages}} trang, đến trang số 
+                        <input id="gotopage" type="text" style="width:2rem"><span id="a">  <a href="" class="btn btn-danger btn-rounded btn-sm my-0" >Đi đến</a></span>
+                        <ul class="pagination justify-content-end mb-0">
+                            {{#if prev}}
+                            <li class="page-item">
+                                <a class="page-link" href="{{prev}}">
+                                    <i class="fas fa-angle-left"></i>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="{{prev}}">{{prev}}</a>
+                            </li>
+                            {{/if}}
+                            <li class="page-item active">
+                                <a class="page-link" href="">{{now}} <span class="sr-only">(current)</span></a>
+                            </li>
+                            {{#if next}}
+                            <li class="page-item">
+                                <a class="page-link" href="{{next}}">{{next}}</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="{{next}}">
+                                    <i class="fas fa-angle-right"></i>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                             {{/if}}
+                        </ul>
+                        <p class="pagination justify-content-end mb-0"></p>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

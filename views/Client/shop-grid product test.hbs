@@ -1,0 +1,195 @@
+<!-- ================ start banner area ================= -->
+<section class="blog-banner-area" id="contact">
+    <div class="container h-100">
+        <div class="blog-banner">
+            <div class="text-center">
+                <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="/product/Allproduct?page=1">Product</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ================ end banner area ================= -->
+<!-- Product Section Begin -->
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-5">
+                <div class="sidebar">
+                    <div class="sidebar__item">
+                        <h4>
+                            <button type="button" class="btn btn-success btn-lg btn-block" aria-pressed="true"
+                                style="font-size: 20px;">Category</button>
+                        </h4>
+                        <ul>
+                            {{#each Category}}
+                            <button type="button" class="btn btn-outline-success btn-lg btn-block">
+                                <li><a class="button-category"
+                                        href="/product/search?namecategory={{this.name}}&page=1">{{this.name}}</a>
+                                </li>
+                            </button>
+
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-7" style="padding-left:50px">
+                <div class="filter__item">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-5">
+                            <div class="filter__sort ">
+                                <span>Sort By</span>
+                                <select id="sortby" name="sortby" onchange="getValue(this)">
+                                    <option value="">Choose </option>
+                                    <option value="PriceAscending">Price Ascending </option>
+                                    <option value="PriceDescending">Price Descending</option>
+                                    <option value="LengthAscending">Name A->Z</option>
+                                    <option value="LengthDescending">Name Z->A</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-4">
+                            {{#if querySearch}}
+                            <h4 id="querySearch"><span>{{Count}}</span> Products for "{{querySearch}}"</h4>
+                            {{else}}
+                            <h4><span>{{Count}}</span> Products found</h4>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    {{#each Product}}
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="product__item" style="border:3px;">
+                            <div class="product__item__pic set-bg border2 border-dark" data-setbg="{{this.pathImg}}"
+                                style="border-radius: 10px;">
+                                <ul class="product__item__pic__hover">
+                                    <li><a href="/product/details/{{this._id}}"><i class="fas fa-search"></i></a></li>
+                                    <li><a onclick="AddToCart(`{{_id}}`)"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="product__item__text">
+                                <h6><a href="/product/details/{{this._id}}">{{this.name}}
+                                        <div>
+                                            <p class="price-product">Author:{{author.name}}</p>
+                                            <p class="price-product"> Rating: <span class="hl">{{rating}}</span>,
+                                                Comment:
+                                                <span class="hl">{{comment.length}}</span></p>
+                                        </div></a>
+
+                                </h6>
+                                <h5 class="price-product"><b>{{price}}$</b></h5>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                <!--  ==============================-->
+                <div class="d-flex justify-content-center">
+                    <nav class="navbar navbar-light">
+                        <ul class="pagination justify-content-end mb-0">
+                            {{#if prev}}
+                            <li class="page-item">
+                                <a class="page-link" href="#" onClick="goToPage({{prev}})">
+                                    <i class="fas fa-arrow-left"></i>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" onClick="goToPage({{prev}})">{{prev}}</a>
+                            </li>
+                            {{/if}}
+                            <li class="page-item active">
+                                <a class="page-link" href="#">{{now}} <span class="sr-only">(current)</span></a>
+                            </li>
+                            {{#if next}}
+                            <li class="page-item">
+                                <a class="page-link" href="#" onClick="goToPage({{next}})">{{next}}</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" onClick="goToPage({{next}})">
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                            {{/if}}
+                        </ul>
+                        <p class="pagination justify-content-end mb-0"></p>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div aria-live="polite" aria-atomic="true" style="min-height: 200px;position:fixed; bottom:0px; right:0px;">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+        <div class="toast-header" style="background: green; color: white;">
+            <img src="/img/brand/favicon.png" class="rounded mr-2" alt="...">
+            <strong class="mr-auto">Notification</strong>
+            <small>Just now</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="false">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            Product has been successfully added to the cart!
+        </div>
+    </div>
+</div>
+<hr style="margin-bottom: 30px;">
+<div class="container">
+    <ol class="hot-key row" style="list-style: none ;margin: 0 auto;">
+        <li><p>Hot key:</p></li>
+        <li><button type="button" class="btn btn-outline-success"><a href="/product/search?namecategory=Programming&page=1">Programming</a></button></li>
+        <li><button type="button" class="btn btn-outline-success"><a href="/product/details/5ec7f3e610722e0198360b6c">C++ Tutorial for Beginners</a></button></li>
+        <li><button type="button" class="btn btn-outline-success"><a href="/product/search?namecategory=DevOps%20Tools&page=1">DevOps Tools</a></button></li>
+        <li><button type="button" class="btn btn-outline-success"><a href="/product/search?namecategory=Cloud%20Certification%20Courses&page=1">Cloud Certification Courses</a></button></li>
+        <li><button type="button" class="btn btn-outline-success"><a href="/product/details/5ec7f3e710722e0198360b74">Git Tutorial | GitHub Tutorial</a></button></li>
+        <li><button type="button" class="btn btn-outline-success"><a href="/product/details/5ec7f3e610722e0198360b68">Learn C++</a></button></li>
+        <li><button type="button" class="btn btn-outline-success"><a href="/product/search?author=ProgrammingKnowledge&page=1">ProgrammingKnowledge</a></button></li>
+    </ol>
+</div>
+<hr>
+<!-- Categories Section End -->
+<div style="margin-bottom:5rem;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Top sale</h2>
+                </div>
+            </div>
+            <div class="categories__slider owl-carousel">
+                {{#each topsale}}
+                <div class="col-lg-3">
+                    <div class="categories__item set-bg border2 border-dark" data-setbg={{this.pathImg}}
+                        style="border-radius: 10px;">
+                        <h5><a href="/product/details/{{this._id}}">{{this.name}}</a></h5>
+                    </div>
+                    <p class="price-product">Author:{{author.name}}</p>
+                    <p class="price-product"> Rating: <span class="hl">{{rating}}</span>, Comment: <span
+                            class="hl">{{comment.length}}</span></p>
+                    <h5 class="price-product"><b>{{price}}$</b></h5>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function goToPage(temp) {
+        let url = window.location.href;
+        //console.log(url);
+        url = url + "&page=" + temp;
+        var index = url.indexOf("page");
+        url = url.substr(0, index + 5) + temp;
+        window.location.href = url;
+        return url;
+    }
+</script>
+<!-- Product Section End -->

@@ -1,0 +1,257 @@
+<!-- ================ start banner area ================= -->
+<section class="blog-banner-area" id="contact">
+    <div class="container h-100">
+        <div class="blog-banner">
+            <div class="text-center">
+                <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a
+                                href="/product/Allproduct?page=1">Product</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a
+                                href="/product/details/{{Product._id}}">{{Product.name}}</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ================ end banner area ================= -->
+<section class="product-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="product-details-tab col-lg-8 col-md-2">
+                <div class="product__details__pic">
+                    <div class="product__details__pic__item ">
+                        <img class="product__details__pic__item--large border2 border-dark"
+                            style="border-radius: 30px; height: 450px" src="{{Product.pathImg}}" alt="">
+                    </div>
+                    <hr style="border: solid 1.5px;">
+                    <div class="product__details__tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
+                                    aria-selected="true">Description
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " data-toggle="tab" href="#tabs-2" role="tab"
+                                    aria-selected="false">Video demo
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
+                                    aria-selected="false">Information</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab"
+                                    aria-selected="false">Reviews</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                <div class="product__details__tab__desc">
+                                    <h6>Products Description</h6>
+                                    <p>{{{Product.descriptionfull}}}</p>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tabs-2" role="tabpanel">
+                                <div class="product__details__tab__desc">
+                                    <h6>Products video demo</h6>
+                                    {{#each Product.video}}
+                                    {{#if @first}}
+                                    <iframe style='height: 360px; width: 740px; object-fit: contain' src="{{this}}"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen>
+                                    </iframe>
+                                    {{/if}}
+                                    {{/each}}
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tabs-3" role="tabpanel">
+                                <div class="product__details__tab__desc">
+                                    <h6>Products Infomation</h6>
+                                    <p><span class="title-p">Name:</span>{{Product.author.name}}</p>
+                                    <p><span class="title-p">Category:</span> <a
+                                            href="/product/search?namecategory={{Product.name}}&page=1">{{Product.category.name}}</a>
+                                    </p>
+                                    <p><span class="title-p">Price:</span>{{Product.price}}</p>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tabs-4" role="tabpanel">
+                                <div class="product__details__tab__desc">
+                                    <h6>Products Review
+                                        <span style="font-weight:500;">({{Product.comment.length}} comment)</span> </h6>
+                                    {{#each Product.comment}}
+                                    <ul>
+                                        <h5><i class="fas fa-user-circle" style="padding-right:10px ;"></i>{{this.name}}
+                                        </h5>
+                                        <p>->{{{this.com}}}</p>
+                                    </ul>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6" style="margin-top: 75px;padding-left: 40px;">
+                <div class="product__details__text">
+                    <h3>{{Product.name}}</h3>
+                    <div class="product__details__rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-o"></i>
+                        <span>({{Product.rating}} rating)</span>
+                        <span>{{Product.comment.length}} comments</span>
+                    </div>
+                    <div class="product__details__price">${{Product.price}}<a href="/"><button style="float:right"
+                                class="btn btn-outline-danger"><i class="far fa-heart"></i></button></a></div>
+                    <div class="row">
+                        <button class="btn btn-danger btn-lg btn-block"><span onclick="AddToCart(`{{Product._id}}`)"
+                                class="add-to-cart" data-id="{{id}}"><i class="fa fa-shopping-cart"
+                                    aria-hidden="true"></i>
+                                ADD TO CARD</span></button>
+                        <button class="btn btn-secondary btn-lg btn-block"><span onclick="AddToCart(`{{Product._id}}`)"
+                                class="add-to-cart" data-id="{{id}}"><i class="fab fa-amazon-pay"><a href="/cart"
+                                        style="color: azure;">BUY NOW </a>
+                                </i></span></button>
+                    </div>
+                    <ul>
+                        <li><span class="title-p">Availability:</span> <span>In Stock</span></li>
+                        <li><span class="title-p">Author:</span><a
+                                href="/product/search?author={{Product.author.name}}&page=1">
+                                <span>{{Product.author.name}}</span></a></li>
+                        {{#each Category}}
+                        <li><span class="title-p">Category:</span> <a
+                                href="/product/search?namecategory={{this.name}}&page=1"><span>{{this.name}}</span></a>
+                            {{/each}}
+                        <li><span class="title-p">Ship:</span> <span>Free</span></li>
+                        <li><b></b>
+                            <div class="share" style="float: left;padding-left: 50px;">
+                                <a href="/"><button class="btn btn-outline-primary"><i
+                                            class="fa fa-facebook"></i></button></a>
+                                <a href="/"><button class="btn btn-outline-info"><i
+                                            class="fa fa-twitter"></i></button></a>
+                                <a href="/"><button class="btn btn-outline-danger"><i
+                                            class="fa fa-instagram"></i></button></a>
+                                <a href="/"><button class="btn btn-outline-success"><i
+                                            class="fa fa-pinterest"></i></button></a>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="/">
+                        <button class="btn btn-danger btn-lg btn-block" style="margin-top:70px"><span><i
+                                    class="fa fa-phone" aria-hidden="true"></i>
+                                Hotline: 038 888 888</span></button>
+                    </a>
+                </div>
+            </div>
+            {{!-- <div class="col-lg-12">
+                <div class="product__details__tab">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
+                                aria-selected="true">Description
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
+                                aria-selected="false">Information</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
+                                aria-selected="false">Reviews <span>(1)</span></a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                            <div class="product__details__tab__desc">
+                                <h6>Products Infomation</h6>
+                                <p>{{Product.descriptionfull}}</p>
+                                <iframe style='height: 380px; width: 750px; object-fit: contain' src="{{Product.video}}"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tabs-2" role="tabpanel">
+                            <div class="product__details__tab__desc">
+                                <h6>Products Infomation</h6>
+                                <p>{{Product.descriptionfull}}</p>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tabs-3" role="tabpanel">
+                            <div class="product__details__tab__desc">
+                                <h6>Products Infomation</h6>
+                                <p>{{Product.descriptionfull}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
+        </div>
+    </div>
+</section>
+<!-- Product Details Section End -->
+
+<!-- Related Product Section Begin -->
+<!-- Categories Section End -->
+<div style="margin-bottom:5rem;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Related Product</h2>
+                </div>
+            </div>
+            <div class="categories__slider owl-carousel">
+                {{#each productRelated}}
+                <div class="col-lg-3 productRelated">
+                        <div class="product__item" style="border:3px;">
+                            <div class="product__item__pic set-bg border2 border-dark" data-setbg="{{this.pathImg}}"
+                                style="border-radius: 10px;">
+                                <ul class="product__item__pic__hover">
+                                    <li><a href="/product/details/{{this._id}}"><i class="fas fa-search"></i></a></li>
+                                    <li><a onclick="AddToCart(`{{_id}}`)"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="product__item__text">
+                                <h6><a href="/product/details/{{this._id}}">{{this.name}}
+                                        <div>
+                                            <p class="price-product">Author:{{author.name}}</p>
+                                            <p class="price-product"> Rating: <span class="hl">{{rating}}</span>,
+                                                Comment:
+                                                <span class="hl">{{comment.length}}</span></p>
+                                        </div></a>
+
+                                </h6>
+                                <h5 class="price-product"><b>{{price}}$</b></h5>
+                            </div>
+                        </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Related Product Section End -->
+<div aria-live="polite" aria-atomic="true" style="min-height: 200px;position:fixed; bottom:0px; right:0px;">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+        <div class="toast-header" style="background: green; color: white;">
+            <img src="/img/brand/favicon.png" class="rounded mr-2" alt="...">
+            <strong class="mr-auto">Notification</strong>
+            <small>Just now</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="false">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            Product has been successfully added to the cart!
+        </div>
+    </div>
+</div>

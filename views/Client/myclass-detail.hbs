@@ -1,0 +1,156 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(function () {
+        $("#playlist li").on("click", function () {
+            $("#videoarea").attr({
+                "src": $(this).attr("movieurl")
+            })
+        })
+        $("#videoarea").attr({
+            "src": $("#playlist li").eq(0).attr("movieurl")
+        })
+        $("#playlist li").click(function () {
+            $("#test").animate({scrollTop: 0}, 1000);
+        })
+    })
+</script>
+
+<!-- Blog Details Hero Begin -->
+<div class="blog__details__hero__text">
+    <h2 style="color: green;">{{Product.name}}</h2>
+    <ul style="color: green;">
+        <li style="color: green;">{{Product.author.name}}</li>
+        <listyle="color: green;">{{Product.createdAt}}</listyle=>
+    </ul>
+</div>
+<!-- Blog Details Hero End -->
+
+<!-- Blog Details Section Begin -->
+<section class="blog-details spad">
+    <div class="container">
+        <div class="row">
+            <!--  <div class="col-lg-4 col-md-5 order-md-1 order-2">
+                <div class="blog__sidebar">
+                    <div class="blog__sidebar__search">
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <h4 style="color:green">Danh Sach Khoa Hoc</h4>
+                        <ul>
+                            <li><a href="#">All</a></li>
+                            <li><a href="#">Beauty (20)</a></li>
+                            <li><a href="#">Food (5)</a></li>
+                            <li><a href="#">Life Style (9)</a></li>
+                            
+
+                        </ul> 
+                    </div>
+                    
+                </div> 
+            </div>-->
+            <div align=”center”>
+                <!-- class="col-lg-7 col-md-7 order-md-1 order-1" -->
+                <div class="blog__details__text">
+                    <!--<img src="img/blog/details/details-pic.jpg" alt="">-->
+                    <div id="test">
+
+                        {{!-- <iframe width="1000" height="500" src="{{this}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --}}
+                        <iframe id="videoarea" title="videoarea" width="800" height="490" frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                        <ul id="playlist" class="groceries">
+                            {{#each Product.video}}
+                            <li movieurl="{{this}}">
+                                <div id="chu"> Lesson {{@index}} </div>
+                            </li>
+                            <div id="chu1"> <iframe id="chu1" style='height: 100px; width: 150px; object-fit: contain'
+                                    src="{{this}}" frameborder="0"
+                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe></div>
+                            {{/each}}
+                            <form action="/myclass/{{Product._id}}/addlesson" method="POST" class="tm-edit-product-form">
+                                <div class="form-group mb-3">
+                                <label for="video">Add new lesson</label>
+                                <input id="video" name="video" type="text" class="form-control validate" required/></div>
+                                <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Lesson Now</button>
+                                </div>
+                            </form>
+                        </ul>
+                    </div>
+
+                    <p> </p>
+                    <p>{{Product.descriptionfull}}</p>
+                </div>
+                <div class="blog__details__content">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="blog__details__author">
+                                <div class="blog__details__author__pic">
+                                    <img class="product__details__pic__item--large border2 border-dark"
+                            style="border-radius: 30px;height: 450px; width: 450px" src="{{Product.pathImg}}" alt="">
+                                </div>
+                                <div class="blog__details__author__text">
+                                    <h6>{{Product.author.name}}</h6>
+                                    <span>{{Product.descriptionshort}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- dat comment o day -->
+                    <div class="col-lg-12">
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
+                                        aria-selected="true">Leave a Comment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
+                                        aria-selected="false">Read Comment</a>
+                                </li>
+
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                    <div class="product__details__tab__desc">
+                                        <!--dat file comment -->
+                                        <div id="respond">
+                                            <label for="comment" class="required">Your message</label>
+                                            <textarea id="commenttext" rows="10" tabindex="4"
+                                                required="required"></textarea>
+                                            <a class="btn btn-success btn-rounded btn-sm my-0" onclick="postcomment(`{{Product._id}}`)">Comment</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tabs-2" role="tabpanel">
+                                    <div class="product__details__tab__desc">
+                                        <ul id="listcomment">
+                                            {{#each UserComment }}
+                                            <li><b>{{this.nameduser}}</b></li>
+                                            <p>{{this.com}}</p>
+                                            {{/each }}
+                                        </ul>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+    {{!-- <video id="videoarea" controls="controls" poster="" src=""></video> --}}
+
+
+
+</section>
+<!-- Blog Details Section End -->

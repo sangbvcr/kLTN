@@ -1,0 +1,132 @@
+<!-- ================ start banner area ================= -->
+<section class="blog-banner-area" id="contact">
+    <div class="container h-50">
+        <div class="blog-banner">
+            <div class="text-center">
+                <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ================ end banner area ================= -->
+<!-- Categories Section Begin -->
+<div style="margin-top:5rem;">
+    <section class="categories">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>MENU</h2>
+                    </div>
+                </div>
+                <div class="categories__slider owl-carousel">
+                    {{#each Category}}
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg border2 border-dark" data-setbg={{this.imgPath}}
+                            style="border-radius: 10px;">
+                            <h5><a href="/product/search?namecategory={{this.name}}&page=1">{{this.name}}</a></h5>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<hr style="margin-top:30px ;">
+<!-- Categories Section End -->
+<div style="margin-top:5rem;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Top Rating</h2>
+                </div>
+            </div>
+            <div class="categories__slider owl-carousel">
+                {{#each toprating}}
+                <div class="col-lg-3">
+                    <div class="categories__item set-bg border2 border-dark" data-setbg={{this.pathImg}}
+                        style="border-radius: 10px;">
+                    </div>
+                                        <div class="featured__item__text">
+                            <div class="product__item__text">
+                                <h6><a href="/product/details/{{this._id}}">{{this.name}}
+                                        <div>
+                                            <p class="price-product">Author:{{author.name}}</p>
+                                            <p class="price-product"> Rating: <span class="hl">{{rating}}</span>,
+                                                Comment:
+                                                <span class="hl">{{comment.length}}</span></p>
+                                        </div></a>
+
+                                </h6>
+                                <h5 class="price-product"><b>{{price}}VND</b></h5>
+                            </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+<hr >
+<!-- Featured Section Begin -->
+<section class="featured spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>New Products</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row featured__filter">
+            {{#each Product}}
+            <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+                <div class="featured__item">
+                    <div class="featured__item__pic set-bg border2 border-dark" data-setbg="{{pathImg}}"
+                        style="border-radius: 10px;">
+                        <ul class="featured__item__pic__hover">
+                            <li><a href="/product/details/{{this._id}}"><i class="fas fa-search"></i></a></li>
+                            <li><a onclick="AddToCart(`{{_id}}`)"><i class="fa fa-shopping-cart"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="featured__item__text">
+                            <div class="product__item__text">
+                                <h6><a href="/product/details/{{this._id}}">{{this.name}}
+                                        <div>
+                                            <p class="price-product">Author:{{author.name}}</p>
+                                            <p class="price-product"> Rating: <span class="hl">{{rating}}</span>,
+                                                Comment:
+                                                <span class="hl">{{comment.length}}</span></p>
+                                        </div></a>
+
+                                </h6>
+                                <h5 class="price-product"><b>{{price}}VND</b></h5>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+<div aria-live="polite" aria-atomic="true" style="min-height: 200px;position:fixed; bottom:0px; right:0px;">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+        <div class="toast-header" style="background: green; color: white;">
+            <img src="/img/brand/favicon.png" class="rounded mr-2" alt="...">
+            <strong class="mr-auto">Notification</strong>
+            <small>Just now</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="false">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            Product has been successfully added to the cart!
+        </div>
+    </div>
+</div>
